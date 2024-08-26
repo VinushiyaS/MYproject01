@@ -1,0 +1,216 @@
+/* Reset some basic styles */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f7d9d4;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #810602;
+  padding: 20px;
+  height:90px;
+  color: white;
+  text-align:left;
+  top: 0;
+  z-index: 1000;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: right ;
+  
+}
+
+.navbar ul li {
+  display: inline;
+  margin: 0 20px;
+}
+
+.navbar ul li a {
+  color: #ffffff ;
+  text-decoration: none;
+}
+.logo-image {
+  height: 120px; /* Adjust the height as needed */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #810602;
+  color:#ffffff ;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Basic container styling */
+.main-container {
+  max-width: 350px;
+  max-height: 550px;
+  /* margin: 100px auto ; */
+  padding: 10px;
+  background-color: #d3817e;
+  box-shadow: 0px 0px 10px rgba(184, 14, 14, 0.1);
+  border-radius: 18px;
+  margin-bottom: 10px;
+  margin-top: 56px;
+  margin-left: 40%;
+}
+
+/* Headings */
+h2 {
+  margin-bottom: 20px;
+  color: #810602;
+  text-align: center;
+  font-size: 30px;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 20px;
+  color:#810602;
+  font-size: 18px;
+}
+
+/* Input fields */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #3d0b09;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+p{
+  color:#810602;
+}
+.nextlink{
+  color:#810602;
+  font-weight: 600;
+}
+.nextlink:hover{
+  color:#773230;
+}
+
+/* Button styling */
+.btn {
+  width: 50%;
+  margin-left: 86px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #810602;
+  border: none;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #ffffff;
+  color: #810602;
+}
+
+/* Additional styles */
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+/* src/App.css */
+
+.landing-page {
+  padding: 170px;
+  /* width: 5%; */
+  background: #ffffff;
+}
+h1{
+  color: #810602;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ margin-right: 90px;
+}
+.card-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 10px;
+}
+
+/* .card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+} */
+
+/* .card:hover {
+  transform: scale(1.05);
+} */
+
+/* Different sizes for the cards */
+/* .card-large {
+  width: 300px;
+  height: 200px;
+}
+
+.card-medium {
+  width: 250px;
+  height: 150px;
+}
+
+.card-small {
+  width: 200px;
+  height: 100px;
+} */
+
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-button {
+  padding: 6px 13px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f59d9a;
+  color: #460404;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.search-button:hover {
+  background-color: #ffe2e2;
+}
+.my:hover{
+  background-color: #ffe2e2;
+  cursor:pointer;
+
+}
+
+
