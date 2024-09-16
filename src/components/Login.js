@@ -1,72 +1,3 @@
-// import React, { useState } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-
-// function Login() {
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-//     const navigate = useNavigate(); // Hook for navigation
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-
-//         try {
-//             const response = await axios.post('http://localhost:5000/api/users/login', {
-//                 email,
-//                 password,
-//             });
-
-//             // Handle successful login
-//             alert('Login successful!');
-//             console.log(response.data);
-
-//             // Redirect to products landing page
-//             navigate('/products');
-//         } catch (error) {
-//             // Handle errors
-//             console.error('Error:', error.response?.data || error.message);
-//             alert('Login failed!');
-//         }
-//     };
-
-//     return (
-//         <div className="container">
-//             <h2>Login</h2>
-//             <form onSubmit={handleSubmit}>
-//                 <div className="form-group">
-//                     <label>Email address</label>
-//                     <input 
-//                         type="email" 
-//                         className="form-control" 
-//                         placeholder="Enter email"
-//                         value={email}
-//                         onChange={(e) => setEmail(e.target.value)}
-//                     />
-//                 </div>
-//                 <div className="form-group">
-//                     <label>Password</label>
-//                     <input 
-//                         type="password" 
-//                         className="form-control" 
-//                         placeholder="Enter password"
-//                         value={password}
-//                         onChange={(e) => setPassword(e.target.value)}
-//                     />
-//                 </div>
-//                 <button type="submit" className="btn">Login</button>
-//                 <p className="text-center mt-3">
-//                     Don't have an account? <Link to="/signup" className='nextlink'>Signup</Link>
-//                 </p>
-//                 <p className="text-center mt-3">
-//                     Forgot your password? <Link to="/forgot-password" className='nextlink'>Reset</Link>
-//                 </p>
-//             </form>
-//         </div>
-//     );
-// }
-
-// export default Login;
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -74,55 +5,91 @@ import axios from 'axios';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('');  // State to store the selected role
-    const navigate = useNavigate(); // Hook for navigation
+    const [role, setRole] = useState('');
+    const [paymentCompleted, setPaymentCompleted] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (role === 'Committee Leader' && !paymentCompleted) {
+            alert('Please complete the payment to continue.');
+            return;
+        }
 
         try {
             const response = await axios.post('http://localhost:5000/api/users/login', {
                 email,
                 password,
-                role,  // Include the role in the request
+                role,
             });
 
-            // Handle successful login
             alert(`Login successful as ${role}!`);
             console.log(response.data);
 
-            // Redirect to different pages based on role
             if (role === 'Committee Leader') {
-                navigate('/committee-dashboard');  // Redirect to Committee Leader's dashboard
-            } else if (role === 'Team Leader') {
-                navigate('/team-dashboard');  // Redirect to Team Leader's dashboard
-            } else if (role === 'Player') {
-                navigate('/player-dashboard');  // Redirect to Player's dashboard
+                navigate('/committee-dashboard');
             } else {
-                navigate('/products');  // Default landing page
+                navigate('/user-dashboard');
             }
         } catch (error) {
-            // Handle errors
             console.error('Error:', error.response?.data || error.message);
             alert('Login failed!');
         }
     };
 
+    const handleRoleSelection = (selectedRole) => {
+        setRole(selectedRole);
+        setPaymentCompleted(selectedRole !== 'Committee Leader');
+    };
+
+    const handlePayment = () => {
+        // Simulate payment process
+        setPaymentCompleted(true);
+        alert('Payment successful!');
+    };
+
+    const renderPaymentForm = () => (
+        <div className="payment-form">
+            <h4>Payment Required for Committee Leader</h4>
+            <div className="form-group">
+                <label>Card Number:</label>
+                <input type="text" className="form-control" placeholder="Enter card number" />
+            </div>
+            <div className="form-group">
+                <label>Expiry Date:</label>
+                <input type="text" className="form-control" placeholder="Enter expiry date" />
+            </div>
+            <div className="form-group">
+                <label>CVV:</label>
+                <input type="password" className="form-control" placeholder="Enter CVV" />
+            </div>
+            <button type="button" className="btn" onClick={handlePayment}>Pay Now</button>
+        </div>
+    );
+
     return (
         <div className="container">
             <h2>Login</h2>
-
-            {/* Role Selection Buttons */}
             <div className="role-selection">
-                <button className="btn" onClick={() => setRole('Committee Leader')}>Login as Committee Leader</button>
-                <button className="btn" onClick={() => setRole('Team Leader')}>Login as Team Leader</button>
-                <button className="btn" onClick={() => setRole('Player')}>Login as Player</button>
+                <button 
+                    className={`btn ${role === 'Committee Leader' ? 'selected' : ''}`} 
+                    onClick={() => handleRoleSelection('Committee Leader')}
+                >
+                    Login as Committee Leader
+                </button>
+                <button 
+                    className={`btn ${role === 'User' ? 'selected' : ''}`} 
+                    onClick={() => handleRoleSelection('User')}
+                >
+                    Login as User
+                </button>
             </div>
 
-            {/* Display selected role */}
             {role && <h4 className="mt-3">Selected Role: {role}</h4>}
 
-            {/* Login Form */}
+            {role === 'Committee Leader' && !paymentCompleted && renderPaymentForm()}
+
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Email address</label>
@@ -132,6 +99,7 @@ function Login() {
                         placeholder="Enter email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -142,6 +110,7 @@ function Login() {
                         placeholder="Enter password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
                 <button type="submit" className="btn">Login</button>
@@ -157,4 +126,3 @@ function Login() {
 }
 
 export default Login;
-

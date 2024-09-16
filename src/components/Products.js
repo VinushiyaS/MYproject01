@@ -137,7 +137,7 @@
 //         fetchProducts();
 //     }, []);
 
-//     const handleAuctionClick = () => {
+    // const handleAuctionClick = () => {
 //         setShowLoginOptions(true);
 //     };
 
